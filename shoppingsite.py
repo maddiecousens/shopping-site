@@ -50,6 +50,7 @@ def show_melon(melon_id):
     Show all info about a melon. Also, provide a button to buy that melon.
     """
 
+    # Call get_by_id method from melons.py to retrieve instance
     melon = melons.get_by_id(melon_id)
     print melon
     return render_template("melon_details.html",
@@ -100,13 +101,14 @@ def add_to_cart(melon_id):
     # - flash a success message
     # - redirect the user to the cart page
 
-    if "cart" in session:
-        session["cart"][melon_id] = session["cart"].get(melon_id, 0) + 1
-    else:
+    # Create a cart session cookie if it doesn't already exist, add melon to it
+    if not session.get("cart"):
         session["cart"] = {}
-        session["cart"][melon_id] = 1
+    
+    session["cart"][melon_id] = session["cart"].get(melon_id, 0) + 1
     print session
-    print type(melons.get_by_id(melon_id))
+
+    # Display a flash message indicating that melon is now in cart
     flash("Successfully added %s to cart" % melons.get_by_id(melon_id).common_name)
 
     return redirect('/cart')
