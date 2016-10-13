@@ -18,6 +18,7 @@
         <tr>
             <td>{{ melon.common_name }}</td>
             <td>{{ melon.quantity }}</td>
+            <!-- Jinja formatting syntax -->
             <td>${{ "%0.2f" | format(melon.price) }}</td>
             <td>${{ "%0.2f" | format(melon.total_cost) }}</td>
         </tr>
