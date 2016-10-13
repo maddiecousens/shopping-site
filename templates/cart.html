@@ -14,18 +14,18 @@
         </thead>
         <tbody>
 
-        {% for melon_id in cart %}
+        {% for melon in melon_list %}
         <tr>
-            <td>{{ melons.get_by_id(melon_id).common_name }}</td>
-            <td>{{ session["cart"][melon_id] }}</td>
-            <td>{{ melons.get_by_id(melon_id).price }}</td>
-            <!-- <td>int({{ melons.get_by_id(melon_id).price }}) * 3</td> -->
+            <td>{{ melon.common_name }}</td>
+            <td>{{ melon.quantity }}</td>
+            <td>${{ "%0.2f" | format(melon.price) }}</td>
+            <td>${{ "%0.2f" | format(melon.total_cost) }}</td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <h3>Total: $27.00</h3>
+    <h3>Total: ${{ "%0.2f" | format(total_cost) }}</h3>
 
     <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
 

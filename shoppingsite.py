@@ -80,8 +80,22 @@ def show_shopping_cart():
     # been added to the session
 
     cart_contents = session["cart"]
+    # {u'golh': 3, u'scab': 3, u'fair': 3}
 
-    return render_template("cart.html", cart=cart_contents)
+    melon_list = []
+    total_cost = 0
+
+    for melon_id, quantity in cart_contents.iteritems():
+        melon = melons.get_by_id(melon_id)
+        melon.quantity = quantity
+    
+
+        melon.total_cost = melon.price * melon.quantity
+        
+        melon_list.append(melon)
+        total_cost += round(melon.total_cost, 2)
+
+    return render_template("cart.html", melon_list=melon_list, total_cost=total_cost)
 
 
 @app.route("/add_to_cart/<melon_id>")
